@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/registration/Login";
 import Logout from "./components/registration/Logout";
 import UserProfile from "./components/UserProfile";
-import AddNewDevice from "./components/AddNewDevice";
-import Count from "./components/Count";
+import AddNewDevice from "./components/addNewDevice/AddNewDevice";
 import Navbar from "./components/navbar/Navbar";
 import "./App.css";
 
@@ -27,9 +26,6 @@ function App() {
                 </Route>
                 <Route exact path="/add-new-device">
                     <AddNewDevice />
-                </Route>
-                <Route exact path="/count">
-                    <Count name="Biplob" age={23} />
                 </Route>
                 <Route exact path="">
                     <h1 className="App">404! Page Not Found.</h1>

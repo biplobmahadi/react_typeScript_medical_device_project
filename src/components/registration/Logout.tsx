@@ -18,6 +18,8 @@ export default function Logout() {
             <Box pt={4} textAlign="center">
                 <Typography>Do you want to logout?</Typography>
                 <Button
+                    variant="outlined"
+                    size="small"
                     onClick={() => {
                         Cookies.remove("access_token");
                         setToken("");
