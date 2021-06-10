@@ -20,6 +20,7 @@ import FirstPageIcon from "@material-ui/icons/FirstPage";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
+import DeviceDataDialog from "./DeviceDataDialog";
 
 const useStyles1 = makeStyles((theme: Theme) =>
     createStyles({
@@ -138,6 +139,7 @@ export default function Devices(props: { devices: Device[] | [] }) {
     const classes = useStyles2();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
     const rows = props.devices;
 
     const emptyRows =
@@ -195,13 +197,7 @@ export default function Devices(props: { devices: Device[] | [] }) {
                                 {row.TypeId}
                             </TableCell>
                             <TableCell style={{ width: 160 }} align="right">
-                                <Button
-                                    size="small"
-                                    color="primary"
-                                    variant="outlined"
-                                >
-                                    See Data
-                                </Button>
+                                <DeviceDataDialog device={row && row} />
                             </TableCell>
                         </TableRow>
                     ))}

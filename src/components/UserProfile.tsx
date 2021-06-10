@@ -22,23 +22,10 @@ interface Device {
     Comment: any;
     Description: string;
 }
-interface DeviceData {
-    Id: number;
-    DataType: string;
-    Brand: string;
-    Model: string;
-    Name: string;
-    DisplayName: string;
-    Description: string;
-    Status: any;
-    GroupId: any;
-    ProtocolOrder: any;
-}
 
 export default function UserProfile() {
     const [user, setUser] = useState<User | null>(null);
     const [devices, setDevices] = useState<Device[]>([]);
-    const [deviceData, setDeviceData] = useState<DeviceData[]>([]);
 
     const access_token = Cookies.get("access_token");
 
@@ -70,20 +57,9 @@ export default function UserProfile() {
             .catch((err) => console.log(err.response));
     }, []);
 
-    const seeDeviceData = () => {
-        axios
-            .get(
-                "http://163.47.115.230:30000/api/overview/modeldata/Hamilton/Galileo",
-                config
-            )
-            .then((res) => setDeviceData(res.data))
-            .catch((err) => console.log(err.response));
-    };
-
     if (!access_token) {
         return <Link to="login">Please login first</Link>;
     }
-    console.log(deviceData);
     return (
         <>
             <Navbar />

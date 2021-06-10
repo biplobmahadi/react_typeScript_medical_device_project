@@ -8,13 +8,55 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import DeviceData from "./DeviceData";
+import axios from "axios";
+import Cookies from "js-cookie";
 
-export default function DeviceDataDialog() {
+const config: object = {
+    headers: {
+        authorization: Cookies.get("access_token"),
+    },
+};
+
+interface Device {
+    Id: number;
+    BrandId: string;
+    Name: string;
+    TypeId: number;
+    Comment: any;
+    Description: string;
+}
+
+interface DeviceDataInterface {
+    Id: number;
+    DataType: string;
+    Brand: string;
+    Model: string;
+    Name: string;
+    DisplayName: string;
+    Description: string;
+    Status: any;
+    GroupId: any;
+    ProtocolOrder: any;
+}
+
+export default function DeviceDataDialog(props: { device: Device }) {
+    const { device } = props;
     const [open, setOpen] = React.useState(false);
+    const [deviceData, setDeviceData] = React.useState<DeviceDataInterface[]>(
+        []
+    );
+
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
     const handleClickOpen = () => {
+        axios
+            .get(
+                "http://163.47.115.230:30000/api/overview/modeldata/Hamilton/Galileo",
+                config
+            )
+            .then((res) => setDeviceData(res.data))
+            .catch((err) => console.log(err.response));
         setOpen(true);
     };
 
@@ -22,11 +64,14 @@ export default function DeviceDataDialog() {
         setOpen(false);
     };
 
+    console.log(deviceData);
+
     return (
         <div>
             <Button
-                variant="outlined"
+                size="small"
                 color="primary"
+                variant="outlined"
                 onClick={handleClickOpen}
             >
                 See Device Data
