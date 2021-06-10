@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
@@ -47,12 +46,12 @@ export default function DeviceDataDialog(props: { device: Device }) {
     );
 
     const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+    const fullScreen = useMediaQuery(theme.breakpoints.down("lg"));
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (BrandId: string, Name: string) => {
         axios
             .get(
-                "http://163.47.115.230:30000/api/overview/modeldata/Hamilton/Galileo",
+                `http://163.47.115.230:30000/api/overview/modeldata/${BrandId}/${Name}`,
                 config
             )
             .then((res) => setDeviceData(res.data))
@@ -72,7 +71,7 @@ export default function DeviceDataDialog(props: { device: Device }) {
                 size="small"
                 color="primary"
                 variant="outlined"
-                onClick={handleClickOpen}
+                onClick={() => handleClickOpen(device.BrandId, device.Name)}
             >
                 See Device Data
             </Button>
@@ -83,7 +82,7 @@ export default function DeviceDataDialog(props: { device: Device }) {
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle id="responsive-dialog-title">
-                    {"Use Google's location service?"}
+                    {`Details data of ${device.BrandId} | ${device.Name}`}
                 </DialogTitle>
                 <DialogContent>
                     <DeviceData />
