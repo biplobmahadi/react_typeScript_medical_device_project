@@ -85,7 +85,7 @@ export default function DeviceDataDialog(props: { device: Device }) {
                     {`Details data of ${device.BrandId} | ${device.Name}`}
                 </DialogTitle>
                 <DialogContent>
-                    <DeviceData />
+                    <DeviceData deviceData={deviceData && deviceData} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary" autoFocus>

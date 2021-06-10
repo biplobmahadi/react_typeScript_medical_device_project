@@ -75,18 +75,6 @@ export default function UserProfile() {
             <Box py={4} px={10}>
                 <Devices devices={devices && devices} />
             </Box>
-            {/* 
-            {deviceData &&
-                deviceData.map((deviceData) => <p>{deviceData.Description}</p>)}
-            
-            <h4 className="App">Availabel Device</h4>
-            {devices &&
-                devices.map((device) => (
-                    <>
-                        <p key={device.Id}>{device.Name}</p>
-                        <button onClick={seeDeviceData}>See details</button>
-                    </>
-                ))} */}
         </>
     );
 }
