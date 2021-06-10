@@ -46,7 +46,7 @@ export default function DeviceDataDialog(props: { device: Device }) {
     );
 
     const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down("lg"));
+    const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
     const handleClickOpen = (BrandId: string, Name: string) => {
         axios

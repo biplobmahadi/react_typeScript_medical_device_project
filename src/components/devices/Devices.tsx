@@ -183,20 +183,12 @@ export default function Devices(props: { devices: Device[] | [] }) {
                         : rows
                     ).map((row) => (
                         <TableRow hover key={row.Id}>
-                            <TableCell component="th" scope="row">
-                                {row.Id}
-                            </TableCell>
-                            <TableCell style={{ width: 160 }} align="right">
-                                {row.BrandId}
-                            </TableCell>
-                            <TableCell style={{ width: 160 }} align="right">
-                                {row.Name}
-                            </TableCell>
+                            <TableCell>{row.Id}</TableCell>
+                            <TableCell align="right">{row.BrandId}</TableCell>
+                            <TableCell align="right">{row.Name}</TableCell>
 
-                            <TableCell style={{ width: 160 }} align="right">
-                                {row.TypeId}
-                            </TableCell>
-                            <TableCell style={{ width: 160 }} align="right">
+                            <TableCell align="right">{row.TypeId}</TableCell>
+                            <TableCell align="right">
                                 <DeviceDataDialog device={row && row} />
                             </TableCell>
                         </TableRow>
