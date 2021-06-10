@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Login from "./components/registration/Login";
+import Logout from "./components/registration/Logout";
+import UserProfile from "./components/UserProfile";
+import AddNewDevice from "./components/AddNewDevice";
+import Count from "./components/Count";
+import Navbar from "./components/navbar/Navbar";
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <Switch>
+                <Route exact path="/">
+                    <Navbar />
+                    <h1 className="App">Welcome!</h1>
+                </Route>
+                <Route exact path="/login">
+                    <Login />
+                </Route>
+                <Route exact path="/logout">
+                    <Logout />
+                </Route>
+                <Route exact path="/user-profile">
+                    <UserProfile />
+                </Route>
+                <Route exact path="/add-new-device">
+                    <AddNewDevice />
+                </Route>
+                <Route exact path="/count">
+                    <Count name="Biplob" age={23} />
+                </Route>
+                <Route exact path="">
+                    <h1 className="App">404! Page Not Found.</h1>
+                </Route>
+            </Switch>
+        </Router>
+    );
 }
 
 export default App;
