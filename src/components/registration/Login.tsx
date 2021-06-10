@@ -77,7 +77,7 @@ export default function Login() {
             .post(`${process.env.REACT_APP_BASE_URL}/api/login`, userInfo)
             .then((res) => {
                 Cookies.set("access_token", res.data.access_token, {
-                    expires: 1,
+                    expires: 1, // set expire for 24 hour
                 });
                 console.log(Cookies.get("access_token"));
                 console.log(res.data.access_token);

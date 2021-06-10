@@ -5,7 +5,6 @@ import {
     Theme,
     createStyles,
 } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";

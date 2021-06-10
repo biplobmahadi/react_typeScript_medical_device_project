@@ -10,12 +10,6 @@ import DeviceData from "./DeviceData";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const config: object = {
-    headers: {
-        authorization: Cookies.get("access_token"),
-    },
-};
-
 interface Device {
     Id: number;
     BrandId: string;
@@ -49,6 +43,12 @@ export default function DeviceDataDialog(props: { device: Device }) {
     const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
     const handleClickOpen = (BrandId: string, Name: string) => {
+        const config: object = {
+            headers: {
+                authorization: Cookies.get("access_token"),
+            },
+        };
+
         axios
             .get(
                 `http://163.47.115.230:30000/api/overview/modeldata/${BrandId}/${Name}`,

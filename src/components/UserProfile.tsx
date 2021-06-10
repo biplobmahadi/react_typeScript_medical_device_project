@@ -29,11 +29,6 @@ export default function UserProfile() {
 
     const access_token = Cookies.get("access_token");
 
-    const config: object = {
-        headers: {
-            authorization: access_token,
-        },
-    };
     useEffect(() => {
         const config: object = {
             headers: {
