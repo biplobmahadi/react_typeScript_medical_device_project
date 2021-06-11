@@ -13,7 +13,9 @@ function App() {
             <Switch>
                 <Route exact path="/">
                     <Navbar />
-                    <h1 className="App">Welcome!</h1>
+                    <h1 className="App" style={{ paddingTop: "100px" }}>
+                        Welcome!
+                    </h1>
                 </Route>
                 <Route exact path="/login">
                     <Login />

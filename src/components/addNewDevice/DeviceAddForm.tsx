@@ -52,12 +52,12 @@ export default function DeviceAddForm(props: { deviceType: DeviceType[] }) {
 
     const deviceType = props.deviceType;
 
-    const deviceObject: Device = {
-        BrandId: "TestModel12",
-        Name: "Test Model12",
-        TypeId: 1,
-        Comment: "test12",
-    };
+    // const deviceObject: Device = {
+    //     BrandId: "TestModel12",
+    //     Name: "Test Model12",
+    //     TypeId: 1,
+    //     Comment: "test12",
+    // };
     const addNewDevice = (
         values: Device,
         setSubmitting: (isSubmitting: boolean) => void
@@ -67,10 +67,12 @@ export default function DeviceAddForm(props: { deviceType: DeviceType[] }) {
                 authorization: Cookies.get("access_token"),
             },
         };
+        const { TypeId } = values;
+        const id = parseInt(TypeId);
         axios
             .post(
                 "http://163.47.115.230:30000/api/devicemodel",
-                deviceObject,
+                { ...values, TypeId: id },
                 config
             )
             .then((res) => {
@@ -83,139 +85,153 @@ export default function DeviceAddForm(props: { deviceType: DeviceType[] }) {
                 setSubmitting(false);
             });
     };
-    console.log("here", deviceType);
 
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-                <Typography component="h5" variant="h5">
-                    Add New Device
-                </Typography>
                 {device ? (
                     <>
-                        <h4>Successfully Device Added!</h4>
-                        <p>Name: {device.Name}</p>
-                        <p>BrandId: {device.BrandId}</p>
+                        <Typography component="h5" variant="h5">
+                            Successfully Device Added!
+                        </Typography>
+                        <h4>
+                            Name: {device.Name} | Brand Id: {device.BrandId} |
+                            Type Id: {device.TypeId}
+                        </h4>
+
+                        <br />
+                        <br />
+                        <br />
+                        <Button
+                            size="small"
+                            variant="contained"
+                            color="primary"
+                            onClick={() => setDevice(null)}
+                        >
+                            Add More Device
+                        </Button>
                     </>
                 ) : (
-                    <div className={classes.form}>
-                        <Formik
-                            initialValues={{
-                                TypeId: "",
-                                BrandId: "",
-                                Name: "",
-                                Comment: "",
-                            }}
-                            validationSchema={Yup.object({
-                                // TypeId: Yup.string().required("Required"),
+                    <>
+                        <Typography component="h5" variant="h5">
+                            Add New Device
+                        </Typography>
 
-                                BrandId: Yup.string()
-                                    .trim("Required")
-                                    .min(2, "Must be min 2 characters")
-                                    .required("Required"),
-                                Name: Yup.string()
-                                    .trim("Required")
-                                    .min(2, "Must be min 2 characters")
-                                    .required("Required"),
+                        <div className={classes.form}>
+                            <Formik
+                                initialValues={{
+                                    TypeId: "",
+                                    BrandId: "",
+                                    Name: "",
+                                    Comment: "",
+                                }}
+                                validationSchema={Yup.object({
+                                    TypeId: Yup.string().required("Required"),
 
-                                Comment: Yup.string()
-                                    .trim("Required")
-                                    .required("Required"),
-                            })}
-                            onSubmit={(values, { setSubmitting }) => {
-                                addNewDevice(values, setSubmitting);
-                            }}
-                        >
-                            {({ isSubmitting }) => (
-                                <div>
-                                    <Form>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12}>
-                                                <Field
-                                                    name="TypeId"
-                                                    type="text"
-                                                    component={TextField}
-                                                    select={true}
-                                                    label="Device Type *"
-                                                    variant="outlined"
-                                                    size="small"
-                                                    fullWidth
-                                                >
-                                                    {deviceType &&
-                                                        deviceType.map(
-                                                            (deviceType) => (
-                                                                <div
-                                                                    key={
-                                                                        deviceType.Id
-                                                                    }
-                                                                >
-                                                                    <MenuItem
-                                                                        value={
-                                                                            deviceType.Id
-                                                                        }
-                                                                    >
-                                                                        {
-                                                                            deviceType.Description
-                                                                        }
-                                                                    </MenuItem>
-                                                                </div>
-                                                            )
-                                                        )}
-                                                </Field>
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <Field
-                                                    name="BrandId"
-                                                    type="text"
-                                                    component={TextField}
-                                                    label="Brand Id *"
-                                                    variant="outlined"
-                                                    size="small"
-                                                    fullWidth
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <Field
-                                                    name="Name"
-                                                    type="text"
-                                                    component={TextField}
-                                                    label="Name *"
-                                                    variant="outlined"
-                                                    size="small"
-                                                    fullWidth
-                                                />
-                                            </Grid>
+                                    BrandId: Yup.string()
+                                        .trim("Required")
+                                        .min(2, "Must be min 2 characters")
+                                        .required("Required"),
+                                    Name: Yup.string()
+                                        .trim("Required")
+                                        .min(2, "Must be min 2 characters")
+                                        .required("Required"),
 
-                                            <Grid item xs={12}>
-                                                <Field
-                                                    name="Comment"
-                                                    type="text"
-                                                    multiline={true}
-                                                    rows={4}
-                                                    component={TextField}
-                                                    label="Comment *"
-                                                    variant="outlined"
-                                                    size="small"
-                                                    fullWidth
-                                                />
+                                    Comment: Yup.string()
+                                        .trim("Required")
+                                        .required("Required"),
+                                })}
+                                onSubmit={(values, { setSubmitting }) => {
+                                    addNewDevice(values, setSubmitting);
+                                }}
+                            >
+                                {({ isSubmitting }) => (
+                                    <div>
+                                        <Form>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={12}>
+                                                    <Field
+                                                        name="TypeId"
+                                                        type="text"
+                                                        component={TextField}
+                                                        select={true}
+                                                        label="Device Type *"
+                                                        variant="outlined"
+                                                        size="small"
+                                                        fullWidth
+                                                    >
+                                                        {deviceType &&
+                                                            deviceType.map(
+                                                                (
+                                                                    deviceType
+                                                                ) => {
+                                                                    return (
+                                                                        <MenuItem
+                                                                            value={`${deviceType.Id}`}
+                                                                        >
+                                                                            {
+                                                                                deviceType.Description
+                                                                            }
+                                                                        </MenuItem>
+                                                                    );
+                                                                }
+                                                            )}
+                                                    </Field>
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    <Field
+                                                        name="BrandId"
+                                                        type="text"
+                                                        component={TextField}
+                                                        label="Brand Id *"
+                                                        variant="outlined"
+                                                        size="small"
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    <Field
+                                                        name="Name"
+                                                        type="text"
+                                                        component={TextField}
+                                                        label="Name *"
+                                                        variant="outlined"
+                                                        size="small"
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+
+                                                <Grid item xs={12}>
+                                                    <Field
+                                                        name="Comment"
+                                                        type="text"
+                                                        multiline={true}
+                                                        rows={4}
+                                                        component={TextField}
+                                                        label="Comment *"
+                                                        variant="outlined"
+                                                        size="small"
+                                                        fullWidth
+                                                    />
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
-                                        <Button
-                                            type="submit"
-                                            fullWidth
-                                            variant="contained"
-                                            color="primary"
-                                            className={classes.submit}
-                                            disabled={isSubmitting}
-                                        >
-                                            Add New Device
-                                        </Button>
-                                    </Form>
-                                </div>
-                            )}
-                        </Formik>
-                    </div>
+                                            <Button
+                                                type="submit"
+                                                fullWidth
+                                                variant="contained"
+                                                color="primary"
+                                                className={classes.submit}
+                                                disabled={isSubmitting}
+                                            >
+                                                Add New Device
+                                            </Button>
+                                        </Form>
+                                    </div>
+                                )}
+                            </Formik>
+                        </div>
+                    </>
                 )}
             </div>
         </Container>
