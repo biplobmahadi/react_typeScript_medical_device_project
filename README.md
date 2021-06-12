@@ -1,12 +1,21 @@
-# Getting Started with Create React App
+# Medical Device Project (React with TypeScript)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project have only three fuctionality - login, user profile and user can add new device.
+You can see this live here [In Github Page](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
-In the project directory, you can run:
+You can run this project locally. To do this, 1st you need to clone this repo from main branch.
+
+Then Run from base directory:
+
+### `yarn install`
+
+To get all necessary node packages.
 
 ### `yarn start`
+
+To start the project locally.
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -39,8 +48,18 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Explanation of choices technologies
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This is a dummy ReactJS project which must need TypeScript.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+So, I choose ReactJs with TypeScript.
+
+For routing system I use React-Router, I think no need to use any Server Side Rendering using like NextJS or Gatsby.
+
+I use axios for data fetching, because it has promise based functionality which is cool think for asynchronous JavaScript.
+
+I use formik with yup for form handling with showing error, which is obviously recommanded from ReactJS team.
+
+For UI, I choose Material-UI which has great UI component.
+
+And finally js-cookie for set cookies for client.
