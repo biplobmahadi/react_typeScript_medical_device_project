@@ -1,11 +1,14 @@
+// external imports
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
+
+// internal imports
 import Login from "./components/registration/Login";
 import Logout from "./components/registration/Logout";
 import UserProfile from "./components/UserProfile";
 import AddNewDevice from "./components/addNewDevice/AddNewDevice";
 import Navbar from "./components/navbar/Navbar";
-import "./App.css";
 
 function App() {
     return (

@@ -1,9 +1,8 @@
+// external imports
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { TextField } from "formik-material-ui";
-
 import MenuItem from "@material-ui/core/MenuItem";
-
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
@@ -52,12 +51,7 @@ export default function DeviceAddForm(props: { deviceType: DeviceType[] }) {
 
     const deviceType = props.deviceType;
 
-    // const deviceObject: Device = {
-    //     BrandId: "TestModel12",
-    //     Name: "Test Model12",
-    //     TypeId: 1,
-    //     Comment: "test12",
-    // };
+    // add new device function to post request in api endpoints
     const addNewDevice = (
         values: Device,
         setSubmitting: (isSubmitting: boolean) => void
@@ -67,6 +61,10 @@ export default function DeviceAddForm(props: { deviceType: DeviceType[] }) {
                 authorization: Cookies.get("access_token"),
             },
         };
+        // we must need typeId to create new device
+        // and also we need to resolve it from /devicetype using select option
+        // to do it we can't set typeId 0 in initial value of formik, because 0 is also a value for select
+        // that's why make it string and then parse it in int
         const { TypeId } = values;
         const id = parseInt(TypeId);
         axios
@@ -81,7 +79,6 @@ export default function DeviceAddForm(props: { deviceType: DeviceType[] }) {
             })
             .catch((err) => {
                 console.log(err.response);
-
                 setSubmitting(false);
             });
     };
@@ -90,6 +87,10 @@ export default function DeviceAddForm(props: { deviceType: DeviceType[] }) {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
+                {/* if device successfully added then need to show to user
+                for 1st rendering user can see the form, after successfully added device then 
+                user can see the device which s/he added
+                */}
                 {device ? (
                     <>
                         <Typography component="h5" variant="h5">
@@ -128,7 +129,6 @@ export default function DeviceAddForm(props: { deviceType: DeviceType[] }) {
                                 }}
                                 validationSchema={Yup.object({
                                     TypeId: Yup.string().required("Required"),
-
                                     BrandId: Yup.string()
                                         .trim("Required")
                                         .min(2, "Must be min 2 characters")
@@ -137,7 +137,6 @@ export default function DeviceAddForm(props: { deviceType: DeviceType[] }) {
                                         .trim("Required")
                                         .min(2, "Must be min 2 characters")
                                         .required("Required"),
-
                                     Comment: Yup.string()
                                         .trim("Required")
                                         .required("Required"),
@@ -167,13 +166,19 @@ export default function DeviceAddForm(props: { deviceType: DeviceType[] }) {
                                                                     deviceType
                                                                 ) => {
                                                                     return (
-                                                                        <MenuItem
-                                                                            value={`${deviceType.Id}`}
-                                                                        >
-                                                                            {
-                                                                                deviceType.Description
+                                                                        <div
+                                                                            key={
+                                                                                deviceType.Id
                                                                             }
-                                                                        </MenuItem>
+                                                                        >
+                                                                            <MenuItem
+                                                                                value={`${deviceType.Id}`}
+                                                                            >
+                                                                                {
+                                                                                    deviceType.Description
+                                                                                }
+                                                                            </MenuItem>
+                                                                        </div>
                                                                     );
                                                                 }
                                                             )}

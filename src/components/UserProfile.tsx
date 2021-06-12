@@ -1,3 +1,4 @@
+// external imports
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
@@ -6,6 +7,7 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 
+// internal imports
 import Navbar from "./navbar/Navbar";
 
 interface User {
@@ -38,6 +40,8 @@ export default function UserProfile() {
         axios
             .get("http://163.47.115.230:30000/api/users", config)
             .then((res) => {
+                // got all user then
+                // need to filter the user who login in this client
                 const allUser = res.data[0];
                 const filterOne = allUser.filter(
                     (userOne: User) =>
@@ -51,10 +55,14 @@ export default function UserProfile() {
             .then((res) => setDevices(res.data))
             .catch((err) => console.log(err.response));
     }, []);
+    // this useEffect will act like componentDidMount
+    // because of empty array as 2nd args
 
+    // If user not logged in then need to login first to get profile page
     if (!access_token) {
-        return <Link to="login">Please login first</Link>;
+        return <Link to="/login">Please login first</Link>;
     }
+
     return (
         <>
             <Navbar />
@@ -68,6 +76,7 @@ export default function UserProfile() {
                 <Typography variant="h5">Device Table</Typography>
             </Box>
             <Box py={4} px={10}>
+                {/* Devices component to see all devices in a table */}
                 <Devices devices={devices && devices} />
             </Box>
         </>

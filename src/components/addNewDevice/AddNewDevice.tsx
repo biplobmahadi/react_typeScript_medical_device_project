@@ -1,8 +1,10 @@
+// external imports
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-
 import { Link } from "react-router-dom";
+
+// internal imports
 import Navbar from "../navbar/Navbar";
 import DeviceAddForm from "./DeviceAddForm";
 
@@ -16,6 +18,8 @@ export default function AddNewDevice() {
 
     const access_token = Cookies.get("access_token");
 
+    // we need to resolve typeid from /devicetype endpoint
+    // so need to get all devicetype
     useEffect(() => {
         const config: object = {
             headers: {
@@ -25,15 +29,17 @@ export default function AddNewDevice() {
         axios
             .get("http://163.47.115.230:30000/api/devicetype", config)
             .then((res) => {
-                console.log("device type", res.data[0]);
                 setDeviceType(res.data[0]);
             })
             .catch((err) => console.log(err.response));
     }, []);
 
+    // user need to login first to add device
+    // if user not logged in then need to login first
     if (!access_token) {
         return <Link to="login">Please login first</Link>;
     }
+
     return (
         <>
             <Navbar />

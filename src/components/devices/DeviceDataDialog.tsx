@@ -1,3 +1,4 @@
+// external imports
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -42,13 +43,14 @@ export default function DeviceDataDialog(props: { device: Device }) {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
+    // after click this fuction, we can get the data which need to show in dialog
+    // here BrandId, Name will found from the device which data we need to show
     const handleClickOpen = (BrandId: string, Name: string) => {
         const config: object = {
             headers: {
                 authorization: Cookies.get("access_token"),
             },
         };
-
         axios
             .get(
                 `http://163.47.115.230:30000/api/overview/modeldata/${BrandId}/${Name}`,
@@ -62,8 +64,6 @@ export default function DeviceDataDialog(props: { device: Device }) {
     const handleClose = () => {
         setOpen(false);
     };
-
-    console.log(deviceData);
 
     return (
         <div>

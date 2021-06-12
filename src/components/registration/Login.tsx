@@ -1,3 +1,4 @@
+// external imports
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { TextField } from "formik-material-ui";
@@ -5,7 +6,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -21,6 +21,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useState } from "react";
 
+// internal imports
 import Navbar from "../navbar/Navbar";
 
 const useStyles = makeStyles((theme) => ({
@@ -52,13 +53,11 @@ interface userObject {
 }
 
 export default function Login() {
-    // const router = useRouter();
-    // const dispatch = useDispatch();
     const classes = useStyles();
 
     const [showPassword, setShowPassword] = useState(false);
-    const [successMessage, setSuccessMessage] = useState("");
     const [errMessage, setErrMessage] = useState("");
+    const [success, setSuccess] = useState(false);
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -68,7 +67,6 @@ export default function Login() {
         event.preventDefault();
     };
 
-    // need to show msg for user not register yet or some other msg
     const login = (
         userInfo: userObject,
         setSubmitting: (isSubmitting: boolean) => void
@@ -79,11 +77,8 @@ export default function Login() {
                 Cookies.set("access_token", res.data.access_token, {
                     expires: 1, // set expire for 24 hour
                 });
-                console.log(Cookies.get("access_token"));
-                console.log(res.data.access_token);
                 Cookies.set("userId", res.data.user.id);
-                setSuccessMessage("You are successfully logged in!");
-
+                setSuccess(true);
                 setErrMessage("");
                 setSubmitting(false);
             })
@@ -92,9 +87,12 @@ export default function Login() {
                 setSubmitting(false);
             });
     };
-    if (successMessage) {
+
+    // If user successfully login then redirect to user profile page
+    if (success) {
         return <Redirect to="user-profile" />;
     }
+
     return (
         <>
             <Navbar />
@@ -114,6 +112,7 @@ export default function Login() {
                         </Box>
                     )}
 
+                    {/* using formik for form handing in react  */}
                     <div className={classes.form}>
                         <Formik
                             initialValues={{
@@ -124,7 +123,6 @@ export default function Login() {
                                 email: Yup.string()
                                     .email("Invalid email address")
                                     .required("Required"),
-
                                 password: Yup.string()
                                     .matches(
                                         /^[A-Za-z\d]{8,}$/,

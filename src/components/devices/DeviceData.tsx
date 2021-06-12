@@ -1,3 +1,4 @@
+// external imports
 import React from "react";
 import {
     makeStyles,
@@ -39,6 +40,7 @@ interface TablePaginationActionsProps {
     ) => void;
 }
 
+// only for table bottom pagination this function use
 function TablePaginationActions(props: TablePaginationActionsProps) {
     const classes = useStyles1();
     const theme = useTheme();
@@ -137,6 +139,7 @@ interface DeviceDataInterface {
     ProtocolOrder: any;
 }
 
+// Device data table component 
 export default function DeviceData(props: {
     deviceData: DeviceDataInterface[] | [];
 }) {

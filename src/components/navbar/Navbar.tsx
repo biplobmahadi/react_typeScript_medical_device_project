@@ -1,3 +1,4 @@
+// external imports
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -47,6 +48,11 @@ export default function NavBar() {
                             Dummy
                         </Link>
                     </Typography>
+
+                    {/* If user logged in then no need to show login button, show logout and other route button.
+                    If user not logged in then only show login button
+                    */}
+
                     {token ? (
                         <>
                             <Link to="/logout" style={{ color: "#FFF" }}>

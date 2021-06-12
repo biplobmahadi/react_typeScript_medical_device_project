@@ -1,3 +1,4 @@
+// external imports
 import React from "react";
 import {
     makeStyles,
@@ -40,6 +41,7 @@ interface TablePaginationActionsProps {
     ) => void;
 }
 
+// table bottom pagination function making
 function TablePaginationActions(props: TablePaginationActionsProps) {
     const classes = useStyles1();
     const theme = useTheme();
@@ -134,6 +136,7 @@ interface Device {
     Description: string;
 }
 
+// Device table component in user porfile
 export default function Devices(props: { devices: Device[] | [] }) {
     const classes = useStyles2();
     const [page, setPage] = React.useState(0);
@@ -188,6 +191,7 @@ export default function Devices(props: { devices: Device[] | [] }) {
 
                             <TableCell align="right">{row.TypeId}</TableCell>
                             <TableCell align="right">
+                                {/* To show device data need a dialog, DeviceDataDialog */}
                                 <DeviceDataDialog device={row && row} />
                             </TableCell>
                         </TableRow>
