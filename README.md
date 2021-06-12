@@ -17,6 +17,8 @@ To get all necessary node packages.
 
 To start the project locally.
 
+### NB. If there have no (.env) file then create it following (.env.example)
+
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
