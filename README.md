@@ -2,7 +2,6 @@
 
 This project have only three fuctionality - login, user profile and user can add new device.
 
-You can see this live here [In Github Page](https://github.com/facebook/create-react-app).
 
 ## Explanation of choices technologies
 
