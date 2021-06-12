@@ -166,19 +166,13 @@ export default function DeviceAddForm(props: { deviceType: DeviceType[] }) {
                                                                     deviceType
                                                                 ) => {
                                                                     return (
-                                                                        <div
-                                                                            key={
-                                                                                deviceType.Id
-                                                                            }
+                                                                        <MenuItem
+                                                                            value={`${deviceType.Id}`}
                                                                         >
-                                                                            <MenuItem
-                                                                                value={`${deviceType.Id}`}
-                                                                            >
-                                                                                {
-                                                                                    deviceType.Description
-                                                                                }
-                                                                            </MenuItem>
-                                                                        </div>
+                                                                            {
+                                                                                deviceType.Description
+                                                                            }
+                                                                        </MenuItem>
                                                                     );
                                                                 }
                                                             )}
