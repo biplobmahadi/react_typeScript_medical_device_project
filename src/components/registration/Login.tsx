@@ -92,6 +92,10 @@ export default function Login() {
     if (success) {
         return <Redirect to="user-profile" />;
     }
+    // if user already logged in and user want to access login page, it will redirect /user-profile
+    if (Cookies.get("access_token")) {
+        return <Redirect to="/user-profile" />;
+    }
 
     return (
         <>
